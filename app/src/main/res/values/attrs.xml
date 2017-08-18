@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MiClockView">
+        <attr name="backgroundColor" format="color" />
+        <attr name="lightColor" format="color" />
+        <attr name="darkColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TemView">
+
+        <attr name="lColor" format="color" />
+        <attr name="dColor" format="color" />
+
+    </declare-styleable>
+
+
+
+
+
+    <declare-styleable name="DialProgress">
+        <attr name="antiAlias" format="boolean" />
+        <attr name="startAngle" format="float"/>
+        <attr name="sweepAngle" format="float"/>
+        <attr name="animTime" format="float"/>
+        <attr name="maxValue" format="float" />
+        <attr name="value" format="float" />
+        <attr name="precision" format="float"/>
+        <attr name="valueSize" format="float"/>
+        <attr name="valueColor" format="color"/>
+        <attr name="textOffsetPercentInRadius" format="float"/>
+        <!-- 绘制内容的单位 -->
+        <attr name="unit" format="float"/>
+        <attr name="unitSize" format="float"/>
+        <attr name="unitColor" format="color"/>
+        <!-- 绘制内容相应的提示语 -->
+        <attr name="hint" format="string"/>
+        <attr name="hintSize" format="float"/>
+        <attr name="hintColor" format="color" />
+        <!-- 圆弧的宽度 -->
+        <attr name="arcWidth" format="float"/>
+        <!-- 刻度的宽度 -->
+        <attr name="dialWidth" format="dimension|reference" />
+        <!-- 刻度之间的间隔 -->
+        <attr name="dialIntervalDegree" format="integer" />
+        <!-- 圆弧颜色， -->
+        <attr name="arcColors" format="color" />
+        <!-- 背景圆弧线颜色 -->
+        <attr name="bgArcColor"  format="color"/>
+        <!-- 刻度线颜色 -->
+        <attr name="dialColor" format="color|reference" />
+    </declare-styleable>
+</resources>
