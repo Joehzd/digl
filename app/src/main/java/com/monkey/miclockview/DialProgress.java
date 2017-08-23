@@ -330,10 +330,10 @@ public class DialProgress extends View {
         canvas.save();
         canvas.rotate(mStartAngle, mCenterPoint.x, mCenterPoint.y);
         for (int i = 0; i <= total; i++) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                canvas.drawRoundRect(5, 10, 15, 15,5, 5, mDialPaint);
-            }
-            //canvas.drawLine(mCenterPoint.x + mRadius, mCenterPoint.y, mCenterPoint.x + mRadius + mArcWidth, mCenterPoint.y, mDialPaint);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                canvas.drawRoundRect(5, 10, 15, 15,5, 5, mDialPaint);
+//            }
+            canvas.drawLine(mCenterPoint.x + mRadius, mCenterPoint.y, mCenterPoint.x + mRadius + mArcWidth, mCenterPoint.y, mDialPaint);
             canvas.rotate(mDialIntervalDegree, mCenterPoint.x, mCenterPoint.y);
         }
         canvas.restore();
