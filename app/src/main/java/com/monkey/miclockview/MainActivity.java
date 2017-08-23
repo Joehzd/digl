@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Sensor defaultSensor;
     private View lefteye, righteye;
     private float normalSpace, x, y;
+    RoundProgressBar roundProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

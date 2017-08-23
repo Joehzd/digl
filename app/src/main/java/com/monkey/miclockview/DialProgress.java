@@ -14,6 +14,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -93,8 +94,8 @@ public class DialProgress extends View {
     public static final boolean ANTI_ALIAS = true;
 
     public static final int DEFAULT_SIZE = 150;
-    public static final int DEFAULT_START_ANGLE = 270;
-    public static final int DEFAULT_SWEEP_ANGLE = 360;
+    public static final int DEFAULT_START_ANGLE = -225;
+    public static final int DEFAULT_SWEEP_ANGLE = 270;
 
     public static final int DEFAULT_ANIM_TIME = 1000;
 
@@ -105,7 +106,7 @@ public class DialProgress extends View {
     public static final int DEFAULT_UNIT_SIZE = 30;
     public static final int DEFAULT_VALUE_SIZE = 15;
 
-    public static final int DEFAULT_ARC_WIDTH = 15;
+    public static final int DEFAULT_ARC_WIDTH = 55;
 
     public static final int DEFAULT_WAVE_HEIGHT = 40;
     private void init(Context context, AttributeSet attrs) {
@@ -159,7 +160,7 @@ public class DialProgress extends View {
         mAnimTime = typedArray.getInt(R.styleable.DialProgress_animTime, DEFAULT_ANIM_TIME);
 
         mBgArcColor = typedArray.getColor(R.styleable.DialProgress_bgArcColor, Color.GRAY);
-        mDialWidth = typedArray.getDimension(R.styleable.DialProgress_dialWidth, 2);
+        mDialWidth = typedArray.getDimension(R.styleable.DialProgress_dialWidth, 10);
         mDialColor = typedArray.getColor(R.styleable.DialProgress_dialColor, Color.WHITE);
 
         mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.DialProgress_textOffsetPercentInRadius, 0.33f);
@@ -272,17 +273,14 @@ public class DialProgress extends View {
         int minSize = Math.min(getMeasuredWidth() - getPaddingLeft() - getPaddingRight() - 2 * (int) mArcWidth,
                 getMeasuredHeight() - getPaddingTop() - getPaddingBottom() - 2 * (int) mArcWidth);
         mRadius = minSize / 2;
-        mCenterPoint.x = getMeasuredWidth() / 2;
-        mCenterPoint.y = getMeasuredHeight() / 2;
+        mCenterPoint.x = w / 2;
+        mCenterPoint.y = h / 2;
         //绘制圆弧的边界
-//        mRectF.left = mCenterPoint.x - mRadius - mArcWidth / 3;
-//        mRectF.top = mCenterPoint.y - mRadius - mArcWidth / 3;
-//        mRectF.right = mCenterPoint.x + mRadius + mArcWidth / 2;
-//        mRectF.bottom = mCenterPoint.y + mRadius + mArcWidth / 2;
-        mRectF.left = 100;
-        mRectF.top = 100;
-        mRectF.right = 100;
-        mRectF.bottom = 100;
+        mRectF.left = mCenterPoint.x - mRadius - mArcWidth / 2;
+        mRectF.top = mCenterPoint.y - mRadius - mArcWidth / 2;
+        mRectF.right = mCenterPoint.x + mRadius + mArcWidth / 2;
+        mRectF.bottom = mCenterPoint.y + mRadius + mArcWidth / 2;
+
 
         mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint);
         mHintOffset = mCenterPoint.y - mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mHintPaint);
@@ -317,7 +315,7 @@ public class DialProgress extends View {
         float currentAngle = mSweepAngle * mPercent;
         canvas.save();
         canvas.rotate(mStartAngle, mCenterPoint.x, mCenterPoint.y);
-        canvas.drawArc(mRectF, currentAngle, mSweepAngle - currentAngle, true, mBgArcPaint);
+        canvas.drawArc(mRectF, currentAngle, mSweepAngle - currentAngle, false, mBgArcPaint);
         // 第一个参数 oval 为 RectF 类型，即圆弧显示区域
         // startAngle 和 sweepAngle  均为 float 类型，分别表示圆弧起始角度和圆弧度数
         // 3点钟方向为0度，顺时针递增
@@ -332,7 +330,10 @@ public class DialProgress extends View {
         canvas.save();
         canvas.rotate(mStartAngle, mCenterPoint.x, mCenterPoint.y);
         for (int i = 0; i <= total; i++) {
-            canvas.drawLine(mCenterPoint.x + mRadius, mCenterPoint.y, mCenterPoint.x + mRadius + mArcWidth, mCenterPoint.y, mDialPaint);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                canvas.drawRoundRect(5, 10, 15, 15,5, 5, mDialPaint);
+            }
+            //canvas.drawLine(mCenterPoint.x + mRadius, mCenterPoint.y, mCenterPoint.x + mRadius + mArcWidth, mCenterPoint.y, mDialPaint);
             canvas.rotate(mDialIntervalDegree, mCenterPoint.x, mCenterPoint.y);
         }
         canvas.restore();
